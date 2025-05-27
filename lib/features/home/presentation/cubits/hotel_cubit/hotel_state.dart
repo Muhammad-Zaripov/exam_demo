@@ -14,7 +14,7 @@ class HotelState {
   });
 
   HotelState copyWith({
-    List<HotelModel>? hotels, 
+    List<HotelModel>? hotels,
     bool? loading,
     String? error,
     HotelModel? selectedHotel,

@@ -3,7 +3,6 @@ import 'package:exam_4_oy_demo/features/splash/presentation/pages/splash_screen.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../core/cubits/reviews_cubit/reviews_cubit.dart';
-import '../core/cubits/theme_cubit/theme_cubit.dart';
 import '../features/home/presentation/cubits/hotel_cubit/hotel_cubit.dart';
 
 class MainApp extends StatelessWidget {
@@ -16,7 +15,6 @@ class MainApp extends StatelessWidget {
         BlocProvider(create: (_) => HotelCubit()..fetchHotels()),
         BlocProvider(create: (_) => AuthCubit()),
         BlocProvider(create: (_) => ReviewsCubit()),
-        BlocProvider(create: (_) => ThemeCubit()),
       ],
       child: MyWidget(),
     );
