@@ -25,7 +25,16 @@ class AppImages {
   static const homeSelect = "assets/svgs/homeSelect.svg";
   static const arrowBack = "assets/svgs/arrowBack.svg";
   static const setting = "assets/svgs/setting.svg";
-
+  static const shower = "assets/svgs/shower.svg";
+  static const breakfast = "assets/svgs/breakfast.svg";
+  static const addReviews = "assets/svgs/addReviews.svg";
+  static const calendar = "assets/svgs/calendar.svg";
+  static const promo = "assets/svgs/promo.svg";
+  static const share = "assets/svgs/share.svg";
+  static const heart = "assets/svgs/heart.svg";
+  static const war = "assets/svgs/war.svg";
+  static const not1 = "assets/svgs/not1.svg";
+  static const not2 = "assets/svgs/not2.svg";
   // Images
   static const onBoarding1 = "assets/images/on_boarding1.png";
   static const onBoarding2 = "assets/images/on_boarding2.png";

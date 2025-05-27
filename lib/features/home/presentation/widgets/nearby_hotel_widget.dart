@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/extensions/screen_size.dart';
-import '../../../../core/helpers/theme_helper.dart';
 import '../../../../core/models/hotel_model.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
@@ -13,15 +12,13 @@ class NearbyHotelWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = ThemeHelper.isDark(context);
-
     final double w = ScreenSize.widthFactor(context);
     final double h = ScreenSize.heightFactor(context);
     return Container(
       // width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: isDark ? AppColors.recomendedHotelColor : Colors.white,
+        color: AppColors.recomendedHotelColor,
       ),
       child: Row(
         children: [
@@ -48,7 +45,7 @@ class NearbyHotelWidget extends StatelessWidget {
                   style: GoogleFonts.dmSans(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.white : Colors.black,
+                    color: Colors.white,
                   ),
                 ),
                 SizedBox(height: 4 * h),
@@ -56,10 +53,7 @@ class NearbyHotelWidget extends StatelessWidget {
                   hotel.location,
                   style: GoogleFonts.dmSans(
                     fontSize: 12,
-                    color:
-                        isDark
-                            ? AppColors.textFieldDarkIconsColor
-                            : AppColors.lightWhiteTextColor,
+                    color: AppColors.textFieldDarkIconsColor,
                   ),
                 ),
                 SizedBox(height: 8 * h),
@@ -81,10 +75,7 @@ class NearbyHotelWidget extends StatelessWidget {
                             style: GoogleFonts.dmSans(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color:
-                                  isDark
-                                      ? AppColors.textFieldDarkIconsColor
-                                      : AppColors.lightWhiteTextColor,
+                              color: AppColors.textFieldDarkIconsColor,
                             ),
                           ),
                         ],
@@ -100,18 +91,15 @@ class NearbyHotelWidget extends StatelessWidget {
                             style: GoogleFonts.dmSans(
                               fontSize: 12,
                               fontWeight: FontWeight.bold,
-                              color: isDark ? Colors.white : Colors.black,
+                              color: Colors.white,
                             ),
                           ),
                           TextSpan(
-                            text: '  (${hotel.reviews} Reviews)',
+                            text: '  (${hotel.reviews?.length ?? 0} Reviews)',
                             style: GoogleFonts.dmSans(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
-                              color:
-                                  isDark
-                                      ? AppColors.textFieldDarkIconsColor
-                                      : AppColors.lightWhiteTextColor,
+                              color: AppColors.textFieldDarkIconsColor,
                             ),
                           ),
                         ],

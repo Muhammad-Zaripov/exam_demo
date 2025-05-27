@@ -1,6 +1,7 @@
-import Flutter
 import UIKit
+import Flutter
 import FirebaseCore
+import YandexMapsMobile
 
 @main
 @objc class AppDelegate: FlutterAppDelegate {
@@ -8,8 +9,10 @@ import FirebaseCore
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+    YMKMapKit.setApiKey("46952e3a-f76d-4fad-976a-4df4536460cf")
     FirebaseApp.configure()
     GeneratedPluginRegistrant.register(with: self)
+    
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

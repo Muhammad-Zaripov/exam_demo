@@ -24,7 +24,6 @@ class _MyButtomState extends State<MyButtom> {
   Widget build(BuildContext context) {
     final w = ScreenSize.widthFactor(context);
     final h = ScreenSize.heightFactor(context);
-
     return InkWell(
       borderRadius: BorderRadius.circular(45),
       onTap: widget.value,

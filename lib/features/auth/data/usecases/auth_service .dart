@@ -3,9 +3,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final _auth = FirebaseAuth.instance;
 
-  Future<String> register({required String email, required String password}) async {
+  Future<String> register({
+    required String email,
+    required String password,
+  }) async {
     try {
-      final userCredential = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      final userCredential = await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       final token = await userCredential.user?.getIdToken();
       return token ?? '';
     } on FirebaseAuthException catch (e) {
@@ -13,9 +19,15 @@ class AuthService {
     }
   }
 
-  Future<String> login({required String email, required String password}) async {
+  Future<String> login({
+    required String email,
+    required String password,
+  }) async {
     try {
-      final userCredential = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      final userCredential = await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       final token = await userCredential.user?.getIdToken();
       return token ?? '';
     } on FirebaseAuthException catch (e) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../extensions/screen_size.dart';
-import '../helpers/theme_helper.dart';
 import '../utils/app_colors.dart';
 
 class MyTextField extends StatelessWidget {
@@ -35,7 +34,6 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = ThemeHelper.isDark(context);
     final double w = ScreenSize.widthFactor(context);
     return SizedBox(
       height: height,
@@ -50,8 +48,7 @@ class MyTextField extends StatelessWidget {
           hintText: hintText,
           isDense: true,
           filled: true,
-          fillColor:
-              isDark ? AppColors.textFieldDarkColor : AppColors.textFieldColor,
+          fillColor: AppColors.textFieldDarkColor,
           contentPadding: EdgeInsets.symmetric(
             vertical: ((height - 20) / 2),
             horizontal: 16,
@@ -84,12 +81,7 @@ class MyTextField extends StatelessWidget {
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),
-            borderSide: BorderSide(
-              color:
-                  isDark
-                      ? AppColors.textFieldDarkColor
-                      : AppColors.textFieldColor,
-            ),
+            borderSide: BorderSide(color: AppColors.textFieldDarkColor),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(borderRadius),

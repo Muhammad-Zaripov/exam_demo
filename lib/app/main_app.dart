@@ -2,6 +2,8 @@ import 'package:exam_4_oy_demo/features/auth/presentation/cubit/auth_cubit.dart'
 import 'package:exam_4_oy_demo/features/splash/presentation/pages/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../core/cubits/reviews_cubit/reviews_cubit.dart';
+import '../core/cubits/theme_cubit/theme_cubit.dart';
 import '../features/home/presentation/cubits/hotel_cubit/hotel_cubit.dart';
 
 class MainApp extends StatelessWidget {
@@ -13,14 +15,23 @@ class MainApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => HotelCubit()..fetchHotels()),
         BlocProvider(create: (_) => AuthCubit()),
+        BlocProvider(create: (_) => ReviewsCubit()),
+        BlocProvider(create: (_) => ThemeCubit()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.system,
-        theme: ThemeData.light(),
-        darkTheme: ThemeData.dark(),
-        home: SplashScreen(),
-      ),
+      child: MyWidget(),
+    );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      darkTheme: ThemeData.dark(),
+      home: SplashScreen(),
     );
   }
 }

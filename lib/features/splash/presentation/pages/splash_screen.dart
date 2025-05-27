@@ -30,11 +30,13 @@ class _SplashScreenState extends State<SplashScreen> {
     if (context.mounted) {
       if (token != null && token.isNotEmpty) {
         Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (_) => MyBottomNavigationBar()),
         );
       } else {
         Navigator.pushReplacement(
+          // ignore: use_build_context_synchronously
           context,
           MaterialPageRoute(builder: (_) => OnBording()),
         );
@@ -45,7 +47,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
       body: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -14,8 +14,11 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_svg: ^2.1.0
+  geocoding: ^3.0.0
   google_fonts: ^6.2.1
   shared_preferences: ^2.5.3
+  syncfusion_flutter_datepicker: ^29.2.5
+  yandex_mapkit: ^4.1.0
 
 dev_dependencies:
   flutter_test:

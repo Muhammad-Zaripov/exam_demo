@@ -11,7 +11,9 @@ class UserModel {
   final int bookingCount;
   final DateTime? startDate;
   final DateTime? endDate;
+  final String? hotelID;
   UserModel({
+    this.hotelID,
     required this.userName,
     required this.userImage,
     required this.userId,

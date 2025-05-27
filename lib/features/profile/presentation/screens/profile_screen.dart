@@ -5,6 +5,15 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      // appBar: AppBar(
+      //   title: IconButton(
+      //     onPressed: () {
+      //       context.read<ThemeCubit>().toggleTheme();
+      //     },
+      //     icon: Icon(Icons.abc),
+      //   ),
+      // ),
+    );
   }
 }

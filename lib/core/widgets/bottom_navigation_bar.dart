@@ -5,7 +5,6 @@ import '../../features/chat/presentation/screens/chat_screen.dart';
 import '../../features/home/presentation/screens/home_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/search/presentation/screens/search_screen.dart';
-import '../helpers/theme_helper.dart';
 import '../utils/app_colors.dart';
 import '../utils/app_images.dart';
 
@@ -18,28 +17,22 @@ class MyBottomNavigationBar extends StatelessWidget {
     ChatScreen(),
     ProfileScreen(),
   ];
-  Color getIconColor(int index, bool isDark, int currentIndex) {
+  Color getIconColor(int index, int currentIndex) {
     if (currentIndex == index) {
       return AppColors.primaryBlueColor;
     } else {
-      return isDark
-          ? AppColors.textFieldDarkIconsColor
-          : AppColors.textFieldIconsColor;
+      return AppColors.textFieldDarkIconsColor;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print('build ishladi');
-    final isDark = ThemeHelper.isDark(context);
     return ValueListenableBuilder<int>(
       valueListenable: _currentIndexNotifier,
       builder: (context, currentIndex, _) {
-        print('Scafold ishladi');
         return Scaffold(
           body: IndexedStack(index: currentIndex, children: _screens),
           bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: Colors.red,
             currentIndex: currentIndex,
             onTap: (index) => _currentIndexNotifier.value = index,
             selectedLabelStyle: GoogleFonts.dmSans(
@@ -51,11 +44,8 @@ class MyBottomNavigationBar extends StatelessWidget {
               fontSize: 12,
               fontWeight: FontWeight.normal,
             ),
-            unselectedItemColor:
-                isDark
-                    ? AppColors.textFieldDarkIconsColor
-                    : AppColors.textFieldIconsColor,
-            type: BottomNavigationBarType.shifting,
+            unselectedItemColor: AppColors.textFieldDarkIconsColor,
+            type: BottomNavigationBarType.fixed,
             items: [
               BottomNavigationBarItem(
                 icon:

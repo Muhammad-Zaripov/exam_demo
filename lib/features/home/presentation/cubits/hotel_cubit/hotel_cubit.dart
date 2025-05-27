@@ -25,4 +25,8 @@ class HotelCubit extends Cubit<HotelState> {
       emit(state.copyWith(error: e.toString(), loading: false));
     }
   }
+
+  void selectHotel(HotelModel hotel) {
+    emit(state.copyWith(selectedHotel: hotel));
+  }
 }

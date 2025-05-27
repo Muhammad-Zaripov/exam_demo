@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../../core/extensions/screen_size.dart';
-import '../../../../core/helpers/theme_helper.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../../core/widgets/line_widget.dart';
@@ -18,12 +17,11 @@ class RecomendedHotelWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final double h = ScreenSize.heightFactor(context);
     final double w = ScreenSize.widthFactor(context);
-    final isDark = ThemeHelper.isDark(context);
     return Container(
       width: 240 * w,
       height: 214 * h,
       decoration: BoxDecoration(
-        color: isDark ? AppColors.recomendedHotelColor : Colors.white,
+        color: AppColors.recomendedHotelColor,
         borderRadius: BorderRadius.circular(15),
       ),
       child: Column(
@@ -103,7 +101,7 @@ class RecomendedHotelWidget extends StatelessWidget {
                   style: GoogleFonts.dmSans(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
-                    color: isDark ? Colors.white : Colors.black,
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 4),
@@ -111,10 +109,7 @@ class RecomendedHotelWidget extends StatelessWidget {
                   hotel.location,
                   style: GoogleFonts.dmSans(
                     fontSize: 12,
-                    color:
-                        isDark
-                            ? AppColors.textFieldDarkIconsColor
-                            : AppColors.lightWhiteTextColor,
+                    color: AppColors.textFieldDarkIconsColor,
                   ),
                 ),
                 SizedBox(height: 10 * h),
@@ -130,10 +125,7 @@ class RecomendedHotelWidget extends StatelessWidget {
                         Text(
                           '${hotel.bedCount} Beds',
                           style: GoogleFonts.dmSans(
-                            color:
-                                isDark
-                                    ? AppColors.textFieldDarkIconsColor
-                                    : AppColors.lightWhiteTextColor,
+                            color: AppColors.textFieldDarkIconsColor,
                             fontSize: 12,
                           ),
                         ),
@@ -142,10 +134,7 @@ class RecomendedHotelWidget extends StatelessWidget {
                     Icon(
                       Icons.circle,
                       size: 4,
-                      color:
-                          isDark
-                              ? AppColors.textFieldDarkIconsColor
-                              : AppColors.lightWhiteTextColor,
+                      color: AppColors.textFieldDarkIconsColor,
                     ),
                     Row(
                       spacing: 6,
@@ -155,20 +144,14 @@ class RecomendedHotelWidget extends StatelessWidget {
                             ? Text(
                               'Wifi',
                               style: GoogleFonts.dmSans(
-                                color:
-                                    isDark
-                                        ? AppColors.textFieldDarkIconsColor
-                                        : AppColors.lightWhiteTextColor,
+                                color: AppColors.textFieldDarkIconsColor,
                                 fontSize: 12,
                               ),
                             )
                             : Text(
                               'No',
                               style: GoogleFonts.dmSans(
-                                color:
-                                    isDark
-                                        ? AppColors.textFieldDarkIconsColor
-                                        : AppColors.lightWhiteTextColor,
+                                color: AppColors.textFieldDarkIconsColor,
                                 fontSize: 12,
                               ),
                             ),
@@ -177,10 +160,7 @@ class RecomendedHotelWidget extends StatelessWidget {
                     Icon(
                       Icons.circle,
                       size: 4,
-                      color:
-                          isDark
-                              ? AppColors.textFieldDarkIconsColor
-                              : AppColors.lightWhiteTextColor,
+                      color: AppColors.textFieldDarkIconsColor,
                     ),
                     Row(
                       spacing: 6,
@@ -190,20 +170,14 @@ class RecomendedHotelWidget extends StatelessWidget {
                             ? Text(
                               'Gym',
                               style: GoogleFonts.dmSans(
-                                color:
-                                    isDark
-                                        ? AppColors.textFieldDarkIconsColor
-                                        : AppColors.lightWhiteTextColor,
+                                color: AppColors.textFieldDarkIconsColor,
                                 fontSize: 12,
                               ),
                             )
                             : Text(
                               'No',
                               style: GoogleFonts.dmSans(
-                                color:
-                                    isDark
-                                        ? AppColors.textFieldDarkIconsColor
-                                        : AppColors.lightWhiteTextColor,
+                                color: AppColors.textFieldDarkIconsColor,
                                 fontSize: 12,
                               ),
                             ),
