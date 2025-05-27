@@ -8,11 +8,14 @@ class MyButtom extends StatefulWidget {
   final String title;
   final Function() value;
   final Color? color;
+  final bool isLoading;
+
   const MyButtom({
     super.key,
     required this.title,
     required this.value,
     this.color,
+    this.isLoading = false,
   });
 
   @override
@@ -24,9 +27,10 @@ class _MyButtomState extends State<MyButtom> {
   Widget build(BuildContext context) {
     final w = ScreenSize.widthFactor(context);
     final h = ScreenSize.heightFactor(context);
+
     return InkWell(
       borderRadius: BorderRadius.circular(45),
-      onTap: widget.value,
+      onTap: widget.isLoading ? null : widget.value,
       child: Container(
         width: 330 * w,
         height: 55 * h,
@@ -35,14 +39,24 @@ class _MyButtomState extends State<MyButtom> {
           borderRadius: BorderRadius.circular(45),
         ),
         child: Center(
-          child: Text(
-            widget.title,
-            style: GoogleFonts.dmSans(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
-          ),
+          child:
+              widget.isLoading
+                  ? const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                      strokeWidth: 2,
+                    ),
+                  )
+                  : Text(
+                    widget.title,
+                    style: GoogleFonts.dmSans(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14,
+                    ),
+                  ),
         ),
       ),
     );

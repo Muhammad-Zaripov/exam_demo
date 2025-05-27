@@ -35,10 +35,37 @@ class AppImages {
   static const war = "assets/svgs/war.svg";
   static const not1 = "assets/svgs/not1.svg";
   static const not2 = "assets/svgs/not2.svg";
+  static const setting_2 = "assets/svgs/setting-2.svg";
+  static const logout = "assets/svgs/logout.svg";
+  static const discountShape = "assets/svgs/discount-shape.svg";
+  static const clock = "assets/svgs/clock.svg";
+  static const vector = "assets/svgs/Vector.svg";
+  static const heart2 = "assets/svgs/heart2.svg";
+  static const discountShape2 = "assets/svgs/discount-shape2.svg";
+  static const clock2 = "assets/svgs/clock2.svg";
+  static const setting_22 = "assets/svgs/setting-22.svg";
+  static const moneys2 = "assets/svgs/moneys2.svg";
+  static const notification2 = "assets/svgs/notification2.svg";
+  static const user2 = "assets/svgs/user2.svg";
+  static const lock2 = "assets/svgs/lock2.svg";
+  static const moneys = "assets/svgs/moneys.svg";
+
+  static const quluf2 = "assets/svgs/quluf2.svg";
+  static const quluf = "assets/svgs/quluf.svg";
+
+  static const moon2 = "assets/svgs/moon2.svg";
+  static const moon = "assets/svgs/moon.svg";
+
+  static const global = "assets/svgs/global.svg";
+  static const global2 = "assets/svgs/global2.svg";
+
   // Images
   static const onBoarding1 = "assets/images/on_boarding1.png";
   static const onBoarding2 = "assets/images/on_boarding2.png";
   static const onBoarding3 = "assets/images/on_boarding3.png";
   static const onBoarding4 = "assets/images/Frame 50987.png";
   static const image = "assets/images/image.png";
+  // ignore: constant_identifier_names
+  static const chat_image = "assets/images/chat_image.png";
+  static const profile1 = "assets/images/profile_photo1.jpeg";
 }

@@ -7,6 +7,7 @@ import '../../../../core/utils/app_colors.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../../core/widgets/bottom_navigation_bar.dart';
 import '../../../../core/widgets/my_buttom.dart';
+import '../../../../core/widgets/my_icon_widget.dart';
 import '../../data/model/auth_model.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
@@ -27,9 +28,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _nameController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState!.validate()) {
-      context.read<AuthCubit>().register(
+      final authCubit = context.read<AuthCubit>();
+      await authCubit.register(
         AuthModel(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
@@ -51,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final double w = ScreenSize.widthFactor(context);
     return Scaffold(
       body: BlocConsumer<AuthCubit, AuthState>(
-        listener: (context, state) {
+        listener: (context, state) async {
           if (state.status == AuthStatus.authenticated) {
             Navigator.pushReplacement(
               context,
@@ -75,16 +77,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 75 * w),
-                    Container(
-                      width: 45 * w,
-                      height: 45 * w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(200),
-                      ),
-
-                      child: Center(
-                        child: SvgPicture.asset(AppImages.arrowLeft),
-                      ),
+                    MyIconWidget(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      icon1: AppImages.arrowLeft,
                     ),
                     SizedBox(height: 30 * w),
 
@@ -168,6 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ? Center(child: CircularProgressIndicator())
                             : _submit();
                       },
+                      isLoading: state.status == AuthStatus.loading,
                     ),
                     SizedBox(height: 20 * w),
                     Row(

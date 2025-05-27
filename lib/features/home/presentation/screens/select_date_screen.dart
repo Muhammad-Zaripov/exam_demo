@@ -96,9 +96,33 @@ class _SelectDateScreenState extends State<SelectDateScreen> {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Total Nights: '),
+                Text(
+                  'Total Price',
+                  style: GoogleFonts.dmSans(
+                    fontSize: 13,
+                    color: AppColors.textFieldDarkIconsColor,
+                  ),
+                ),
                 SizedBox(height: 4),
-                Text('Total Price: \$'),
+                Row(
+                  children: [
+                    Text(
+                      '\$${hotel.price}',
+                      style: GoogleFonts.dmSans(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.primaryBlueColor,
+                      ),
+                    ),
+                    Text(
+                      '  Per Night',
+                      style: GoogleFonts.dmSans(
+                        fontSize: 13,
+                        color: AppColors.textFieldDarkIconsColor,
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
             Spacer(),

@@ -1,4 +1,8 @@
 import 'package:exam_4_oy_demo/core/widgets/bottom_navigation_bar.dart';
+import 'package:exam_4_oy_demo/features/auth/presentation/pages/forgot_password_screen.dart';
+import 'package:exam_4_oy_demo/features/profile/data/model/user_model.dart';
+import 'package:exam_4_oy_demo/features/profile/domain/usecases/user_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,6 +11,7 @@ import 'package:exam_4_oy_demo/core/utils/app_colors.dart';
 import '../../../../core/extensions/screen_size.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../../core/widgets/my_buttom.dart';
+import '../../../../core/widgets/my_icon_widget.dart';
 import '../../data/model/auth_model.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
@@ -52,6 +57,20 @@ class _LoginScreenState extends State<LoginScreen> {
             child: BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
                 if (state.status == AuthStatus.authenticated) {
+                  final FirebaseAuth auth = FirebaseAuth.instance;
+                  final UserRepository userRepository = UserRepository();
+                  UserModel user = UserModel(
+                    userId: auth.currentUser!.uid,
+                    userName: 'John Doe',
+                    userImage: 'https://example.com/photo.jpg',
+                    transactionCount: 3,
+                    phonoNumber: '+998901234567',
+                    favoriteHotels: [],
+                    reviews: 5,
+                    bookingCount: 2,
+                  );
+
+                  userRepository.addOrUpdateUser(user);
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (_) => MyBottomNavigationBar()),
@@ -69,17 +88,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(height: 75 * w),
-                    Container(
-                      width: 45 * w,
-                      height: 45 * w,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(200),
-                      ),
 
-                      child: Center(
-                        child: SvgPicture.asset(AppImages.arrowLeft),
-                      ),
-                    ),
+                    MyIconWidget(onTap: () {}, icon1: AppImages.arrowLeft),
                     SizedBox(height: 30 * w),
                     Text(
                       "Welcome to Homelyn",
@@ -141,7 +151,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         Text(""),
                         GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (x) => ForgotPasswordScreen(),
+                              ),
+                            );
+                          },
                           child: Text(
                             "Forgot Password?",
                             style: GoogleFonts.dmSans(
@@ -155,11 +172,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(height: 75 * w),
                     MyButtom(
                       title: "Agree and Continue",
-                      value: () {
-                        state.status == AuthStatus.loading
-                            ? Center(child: CircularProgressIndicator())
-                            : _submit();
-                      },
+                      value: _submit,
+                      isLoading: state.status == AuthStatus.loading,
                     ),
                     SizedBox(height: 20 * w),
                     Row(
@@ -193,7 +207,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pushReplacement(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (ctx) => RegisterScreen(),

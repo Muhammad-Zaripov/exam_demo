@@ -36,56 +36,50 @@ class _MyTextFromFild2State extends State<MyTextFromFild2> {
           widget.name,
           style: GoogleFonts.dmSans(
             fontSize: 16,
-            color: AppColors.blackColor,
+            color: Colors.white,
             fontWeight: FontWeight.bold,
           ),
         ),
         SizedBox(height: 10 * w),
-        SizedBox(
-          width: 330 * w,
-
-          child: TextFormField(
-            obscureText: show,
-            controller: widget.controller,
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.only(left: 14, right: 10),
-                child: widget.icon,
-              ),
-              suffixIcon: IconButton(
-                onPressed: () {
-                  setState(() {
-                    show = !show;
-                  });
-                },
-                icon:
-                    show
-                        ? Icon(
-                          Icons.visibility_off,
-                          color: AppColors.lightWhiteButtomCollor,
-                        )
-                        : Icon(
-                          Icons.visibility,
-                          color: AppColors.lightWhiteButtomCollor,
-                        ),
-              ),
-              prefixIconConstraints: BoxConstraints(
-                minWidth: 40,
-                minHeight: 40,
-                maxWidth: 50,
-                maxHeight: 50,
-              ),
-              hintText: widget.title,
-              hintStyle: GoogleFonts.dmSans(
-                fontSize: 14,
-                color: AppColors.lightWhiteTextColor,
-              ),
+        TextFormField(
+          obscureText: show,
+          controller: widget.controller,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(left: 14, right: 10),
+              child: widget.icon,
             ),
-            validator: widget.validator,
+            suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  show = !show;
+                });
+              },
+              icon:
+                  show
+                      ? Icon(
+                        Icons.visibility_off,
+                        color: AppColors.lightWhiteButtomCollor,
+                      )
+                      : Icon(
+                        Icons.visibility,
+                        color: AppColors.lightWhiteButtomCollor,
+                      ),
+            ),
+            prefixIconConstraints: BoxConstraints(
+              minWidth: 40,
+              minHeight: 40,
+              maxWidth: 50,
+              maxHeight: 50,
+            ),
+            hintText: widget.title,
+            hintStyle: GoogleFonts.dmSans(
+              fontSize: 14,
+              color: AppColors.textFieldDarkIconsColor,
+            ),
           ),
+          validator: widget.validator,
         ),
         SizedBox(height: 20 * w),
       ],

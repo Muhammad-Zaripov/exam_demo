@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../data/model/auth_model.dart';
 import '../../data/usecases/auth_repositories.dart';
 import '../../data/usecases/auth_service .dart';
@@ -23,7 +22,10 @@ class AuthCubit extends Cubit<AuthState> {
       emit(state.copyWith(status: AuthStatus.authenticated));
     } catch (e) {
       emit(
-        state.copyWith(status: AuthStatus.failure, errorMessage: e.toString()),
+        state.copyWith(
+          status: AuthStatus.failure,
+          errorMessage: e is String ? e : 'Nomaʼlum xatolik',
+        ),
       );
     }
   }
@@ -39,7 +41,10 @@ class AuthCubit extends Cubit<AuthState> {
       emit(state.copyWith(status: AuthStatus.authenticated));
     } catch (e) {
       emit(
-        state.copyWith(status: AuthStatus.failure, errorMessage: e.toString()),
+        state.copyWith(
+          status: AuthStatus.failure,
+          errorMessage: e is String ? e : 'Nomaʼlum xatolik',
+        ),
       );
     }
   }

@@ -15,4 +15,6 @@ class AppColors {
   static const lineDarkColor = Color(0xff636777);
   static const lineColor = Color(0xffE7E7E7);
   static const lightBlackColor = Color(0xff151B33);
+  static const lightOrangeColor = Color(0xffFFBB0D);
+  static const orangeTextColor = Color(0xffFFBA55);
 }

@@ -1,4 +1,5 @@
-enum AuthStatus { initial, loading, authenticated, unauthenticated, failure }
+enum AuthStatus { initial, loading, authenticated, unauthenticated, failure, success }
+
 
 class AuthState {
   final String email;
