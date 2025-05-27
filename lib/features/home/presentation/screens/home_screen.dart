@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:exam_4_oy_demo/core/models/hotel_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -170,6 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             context.read<HotelCubit>().selectHotel(
                               state.hotels[index],
                             );
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -214,6 +217,33 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          addProduct(
+            HotelModel(
+              name: 'Hayata',
+              about: "Bu mehmonhona juda zur hammaga mahslahat beraman ",
+              image:
+                  "https://avatars.mds.yandex.net/i?id=8184360ad47e4ef8dec536f37bcf9aa1f3a14256-4724414-images-thumbs&n=13",
+              rating: 5,
+              price: 50,
+              bedCount: 3,
+              latitude: 0,
+              longitude: 0,
+              breakfast: true,
+              cancelations: true,
+              gym: false,
+              shower: true,
+              wifi: false,
+              location: "kotta holeni yonida",
+            ),
+          );
+        },
+      ),
     );
+  }
+
+  Future<void> addProduct(HotelModel h) async {
+    await FirebaseFirestore.instance.collection('hotels').add(h.toJson());
   }
 }

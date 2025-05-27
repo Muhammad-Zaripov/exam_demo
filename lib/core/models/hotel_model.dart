@@ -1,7 +1,7 @@
 import 'reviews_model.dart';
 
 class HotelModel {
-  final String id;
+  final String? id;
   final String name;
   final String about;
   final String image;
@@ -19,7 +19,7 @@ class HotelModel {
   final List<ReviewsModel>? reviews;
 
   HotelModel({
-    required this.id,
+    this.id,
     required this.name,
     required this.about,
     required this.image,

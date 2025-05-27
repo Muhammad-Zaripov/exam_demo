@@ -55,6 +55,4 @@ class AuthService {
         return 'Nomaʼlum xatolik: ${e.message}';
     }
   }
-
-  
 }

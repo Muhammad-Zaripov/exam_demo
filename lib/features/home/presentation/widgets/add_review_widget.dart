@@ -1,4 +1,5 @@
 import 'package:exam_4_oy_demo/core/models/reviews_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,17 +8,35 @@ import '../../../../core/extensions/screen_size.dart';
 import '../../../../core/utils/app_colors.dart';
 import '../../../../core/widgets/my_text_field.dart';
 
-class AddReviewWidget extends StatelessWidget {
+class AddReviewWidget extends StatefulWidget {
   final String hotelId;
   const AddReviewWidget({super.key, required this.hotelId});
 
   @override
-  Widget build(BuildContext context) {
-    final titleController = TextEditingController();
-    final ratingController = TextEditingController();
+  State<AddReviewWidget> createState() => _AddReviewWidgetState();
+}
 
+class _AddReviewWidgetState extends State<AddReviewWidget> {
+  final titleController = TextEditingController();
+  final ratingController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    titleController.dispose();
+    ratingController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final double w = ScreenSize.widthFactor(context);
     final double h = ScreenSize.heightFactor(context);
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -31,14 +50,15 @@ class AddReviewWidget extends StatelessWidget {
           SizedBox(height: 10),
           MyTextField(
             hintText: "Review",
-            controller: TextEditingController(),
+            controller: titleController, // To‘g‘ri controller ulandi
             borderRadius: 20,
           ),
           SizedBox(height: 20),
           MyTextField(
-            hintText: "Rating",
-            controller: TextEditingController(),
+            hintText: "Rating (0-5)",
+            controller: ratingController, // To‘g‘ri controller ulandi
             borderRadius: 20,
+            keyboardType: TextInputType.number, // Faqat raqam kiritish uchun
           ),
           SizedBox(height: 20 * h),
           Row(
@@ -70,9 +90,10 @@ class AddReviewWidget extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   final title = titleController.text.trim();
-                  final rating = ratingController.text.trim();
+                  final ratingText = ratingController.text.trim();
 
-                  if (title.isEmpty || rating.isEmpty) {
+                  // Bo‘sh maydonlarni tekshirish
+                  if (title.isEmpty || ratingText.isEmpty) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Iltimos sharh va bahoni to‘ldiring'),
@@ -81,20 +102,48 @@ class AddReviewWidget extends StatelessWidget {
                     return;
                   }
 
+                  // Rating’ni double’ga aylantirish
+                  double? rating;
+                  try {
+                    rating = double.parse(ratingText);
+                    if (rating < 0 || rating > 5) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text(
+                            'Baholash 0 dan 5 gacha bo‘lishi kerak',
+                          ),
+                        ),
+                      );
+                      return;
+                    }
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Iltimos, to‘g‘ri raqam kiriting'),
+                      ),
+                    );
+                    return;
+                  }
+
                   final review = ReviewsModel(
-                    rating: rating,
-                    title: title,
-                    userId: '',
+                    rating: ratingController.text,
+                    title: titleController.text,
+                    userId: FirebaseAuth.instance.currentUser!.uid,
                   );
 
                   context.read<ReviewsCubit>().addReview(
-                    hotelId,
+                    widget.hotelId,
                     review,
-                    rating as ReviewsModel,
                   );
-                  Navigator.of(context).pop(); // Modalni yopish
-                },
 
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Sharh muvaffaqiyatli qo‘shildi'),
+                    ),
+                  );
+
+                  Navigator.of(context).pop();
+                },
                 child: Container(
                   width: 100 * w,
                   height: 40 * h,

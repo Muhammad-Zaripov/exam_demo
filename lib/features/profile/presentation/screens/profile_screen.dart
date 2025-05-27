@@ -4,7 +4,7 @@ import 'package:exam_4_oy_demo/core/widgets/my_icon_widget.dart';
 import 'package:exam_4_oy_demo/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:exam_4_oy_demo/features/auth/presentation/pages/login_screen.dart';
 import 'package:exam_4_oy_demo/features/profile/presentation/screens/favourite_screen.dart';
-import 'package:exam_4_oy_demo/features/profile/presentation/screens/my%20_cupon_screen.dart';
+import 'package:exam_4_oy_demo/features/profile/presentation/screens/my_cupon_screen.dart';
 import 'package:exam_4_oy_demo/features/profile/presentation/screens/settings_screen.dart';
 import 'package:exam_4_oy_demo/features/profile/presentation/screens/transaction_history.dart';
 import 'package:exam_4_oy_demo/features/profile/presentation/widgets/my_contaner_widget.dart';

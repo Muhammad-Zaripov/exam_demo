@@ -89,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "Welcome to Homelyn",
                       style: GoogleFonts.dmSans(
                         fontSize: 24,
-                        color: AppColors.blackColor,
+                        color: AppColors.primaryBlueColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),

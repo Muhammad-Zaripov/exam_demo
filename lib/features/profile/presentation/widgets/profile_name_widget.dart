@@ -6,6 +6,7 @@ import 'package:exam_4_oy_demo/core/extensions/screen_size.dart';
 class ProfileNameWidget extends StatefulWidget {
   final String lastName;
   final String secondName;
+  // ignore: prefer_typing_uninitialized_variables
   final image;
   const ProfileNameWidget({
     super.key,

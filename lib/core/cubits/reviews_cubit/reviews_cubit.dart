@@ -12,36 +12,57 @@ class ReviewsCubit extends Cubit<ReviewsState> {
   Future<void> fetchReviews(String hotelId) async {
     emit(ReviewsLoading());
     try {
+      // Firestore'dan reviews collection'dan hotelId bo'yicha ma'lumotlarni olish
       final query =
           await _firestore
-              .collection('reviews')
-              .where('hotelId', isEqualTo: hotelId)
+              .collection('hotels')
+              .doc(hotelId)
+              .collection("reviews")
               .get();
 
+      // Agar hech qanday hujjat topilmasa, bo'sh ro'yxat qaytarish
+      if (query.docs.isEmpty) {
+        print("review yoqqqqhwbhqhwbqeyuqwbuqwvbehyvqwveyqwvy");
+        emit(ReviewsLoaded(const []));
+        return;
+      }
+
+      // Hujjatlarni ReviewsModel obyektlariga aylantirish
       final reviews =
           query.docs.map((doc) {
+            print("===================");
+            print(doc.data());
             final data = doc.data();
-            return ReviewsModel.fromJson(data);
+            // Ma'lumotlar to'g'ri formatda ekanligini tekshirish
+            if (data.isNotEmpty) {
+              print("=======2@2=2=2=22=2=2222======");
+              print(doc.data());
+              return ReviewsModel.fromJson(doc.data());
+            } else {
+              throw Exception('Review ma\'lumotlari noto\'g\'ri formatda');
+            }
           }).toList();
 
       emit(ReviewsLoaded(reviews));
     } catch (e) {
-      emit(ReviewsError(e.toString()));
+      // Xato haqida aniqroq ma'lumot berish
+      final errorMessage =
+          e is FirebaseException
+              ? 'Firestore xatosi: ${e.message}'
+              : 'Noma\'lum xato: $e';
+      emit(ReviewsError(errorMessage));
     }
   }
 
   /// Add a new review
-  Future<void> addReview(
-    String hotelId,
-    ReviewsModel review,
-    ReviewsModel reting,
-  ) async {
+  Future<void> addReview(String hotelId, ReviewsModel review) async {
     try {
-      await _firestore.collection('reviews').add({
-        'hotelId': hotelId,
-        ...review.toJson(),
-      });
-      fetchReviews(hotelId); // refresh after adding
+      await _firestore
+          .collection('hotels')
+          .doc(hotelId)
+          .collection("reviews")
+          .add({'hotelId': hotelId, ...review.toJson()});
+      await fetchReviews(hotelId);
     } catch (e) {
       emit(ReviewsError(e.toString()));
     }
@@ -51,7 +72,7 @@ class ReviewsCubit extends Cubit<ReviewsState> {
   Future<void> deleteReview(String reviewId, String hotelId) async {
     try {
       await _firestore.collection('reviews').doc(reviewId).delete();
-      fetchReviews(hotelId); // refresh after deletion
+      fetchReviews(hotelId);
     } catch (e) {
       emit(ReviewsError(e.toString()));
     }

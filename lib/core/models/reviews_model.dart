@@ -9,7 +9,7 @@ class ReviewsModel {
   });
   factory ReviewsModel.fromJson(Map<String, dynamic> json) {
     return ReviewsModel(
-      rating: (json['rating'] ?? 0).toDouble(),
+      rating: (json['rating'] ?? 0),
       title: json['title'] ?? '',
       userId: json['userId'] ?? '',
     );

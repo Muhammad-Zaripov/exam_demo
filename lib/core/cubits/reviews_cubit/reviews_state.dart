@@ -15,9 +15,6 @@ class ReviewsLoaded extends ReviewsState {
   final List<ReviewsModel> reviews;
 
   ReviewsLoaded(this.reviews);
-
-  @override
-  List<Object?> get props => [reviews];
 }
 
 class ReviewsError extends ReviewsState {

@@ -3,8 +3,11 @@ import 'dart:ui';
 import 'package:exam_4_oy_demo/core/utils/app_images.dart';
 import 'package:exam_4_oy_demo/features/home/presentation/widgets/see_all_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../../../core/cubits/reviews_cubit/reviews_cubit.dart';
+import '../../../../core/cubits/reviews_cubit/reviews_state.dart';
 import '../../../../core/extensions/screen_size.dart';
 import '../../../../core/models/hotel_model.dart';
 import '../../../../core/utils/app_colors.dart';
@@ -12,9 +15,21 @@ import '../widgets/add_review_widget.dart';
 import '../widgets/yandex_map_widget.dart';
 import 'select_date_screen.dart';
 
-class HotelDetailScreen extends StatelessWidget {
+class HotelDetailScreen extends StatefulWidget {
   final HotelModel hotel;
+
   const HotelDetailScreen({super.key, required this.hotel});
+
+  @override
+  State<HotelDetailScreen> createState() => _HotelDetailScreenState();
+}
+
+class _HotelDetailScreenState extends State<HotelDetailScreen> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<ReviewsCubit>().fetchReviews(widget.hotel.id.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +42,11 @@ class HotelDetailScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                Image.network(hotel.image, height: 360, fit: BoxFit.cover),
+                Image.network(
+                  widget.hotel.image,
+                  height: 360,
+                  fit: BoxFit.cover,
+                ),
                 Positioned(
                   top: 50,
                   left: 24,
@@ -132,7 +151,7 @@ class HotelDetailScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    hotel.name,
+                    widget.hotel.name,
                     style: GoogleFonts.dmSans(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
@@ -144,7 +163,7 @@ class HotelDetailScreen extends StatelessWidget {
                       SvgPicture.asset(AppImages.location),
                       SizedBox(width: 6 * w),
                       Text(
-                        hotel.location,
+                        widget.hotel.location,
                         style: GoogleFonts.dmSans(
                           fontSize: 14,
                           color: AppColors.textFieldDarkIconsColor,
@@ -154,11 +173,11 @@ class HotelDetailScreen extends StatelessWidget {
                       SvgPicture.asset(AppImages.star),
                       SizedBox(width: 4 * w),
                       Text(
-                        hotel.rating.toString(),
+                        widget.hotel.rating.toString(),
                         style: GoogleFonts.dmSans(fontSize: 14),
                       ),
                       Text(
-                        '  (${hotel.reviews?.length ?? 0} Reviews)',
+                        '  (${widget.hotel.reviews?.length ?? 0} Reviews)',
                         style: GoogleFonts.dmSans(
                           fontSize: 14,
                           color: AppColors.textFieldDarkIconsColor,
@@ -171,7 +190,7 @@ class HotelDetailScreen extends StatelessWidget {
                     spacing: 6,
                     children: [
                       Text(
-                        '\$${hotel.price}',
+                        '\$${widget.hotel.price}',
                         style: GoogleFonts.dmSans(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -189,7 +208,7 @@ class HotelDetailScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 16 * h),
                   Text(
-                    hotel.about,
+                    widget.hotel.about,
                     style: GoogleFonts.dmSans(
                       fontSize: 14,
                       color: AppColors.textFieldDarkIconsColor,
@@ -280,18 +299,36 @@ class HotelDetailScreen extends StatelessWidget {
                   SizedBox(height: 17 * h),
                   SeeAllButton(title: "Location", seeAllText: "View Detail"),
                   SizedBox(height: 20 * h),
-                  YandexMapWidget(hotel: hotel),
+                  YandexMapWidget(hotel: widget.hotel),
                   SizedBox(height: 30 * h),
                   SeeAllButton(title: "Reviews"),
                   SizedBox(height: 20 * h),
-                  // BlocBuilder<ReviewsCubit, ReviewsState>(
-                  //   builder: (context, state) {
-                  //     if (state is ReviewsLoading) {
-                  //       return const Center(child: CircularProgressIndicator());
-                  //     }
-                  //     return const SizedBox.shrink();
-                  //   },
-                  // ),
+                  BlocBuilder<ReviewsCubit, ReviewsState>(
+                    builder: (context, state) {
+                      if (state is ReviewsLoaded) {
+                        print("Reviews loaded: ${state.reviews.length}");
+                        if (state.reviews.isEmpty) {
+                          return const Center(
+                            child: Text("No reviews available"),
+                          );
+                        }
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: state.reviews.length,
+                          itemBuilder: (context, index) {
+                            final rew = state.reviews[index];
+                            return ListTile(title: Text(rew.title));
+                          },
+                        );
+                      } else if (state is ReviewsLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is ReviewsError) {
+                        return Center(child: Text("Error: ${state.message}"));
+                      }
+                      return const Center(child: Text("No reviews data"));
+                    },
+                  ),
                 ],
               ),
             ),
@@ -310,7 +347,9 @@ class HotelDetailScreen extends StatelessWidget {
                     context: context,
                     isScrollControlled: true,
                     builder: (context) {
-                      return AddReviewWidget(hotelId: hotel.id);
+                      return AddReviewWidget(
+                        hotelId: widget.hotel.id.toString(),
+                      );
                     },
                   );
                 },
@@ -330,7 +369,7 @@ class HotelDetailScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SelectDateScreen(hotel: hotel),
+                    builder: (context) => SelectDateScreen(hotel: widget.hotel),
                   ),
                 );
               },

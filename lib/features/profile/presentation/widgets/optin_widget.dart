@@ -6,11 +6,14 @@ import '../../../../core/utils/app_colors.dart';
 
 class OptinWidget extends StatefulWidget {
   final String title;
+  // ignore: prefer_typing_uninitialized_variables
   final icon1;
+  // ignore: prefer_typing_uninitialized_variables
   final icon2;
+  // ignore: prefer_typing_uninitialized_variables
   final icon22;
   final VoidCallback? next;
-  OptinWidget({
+  const OptinWidget({
     super.key,
 
     required this.icon22,
@@ -55,6 +58,7 @@ class _OptinWidgetState extends State<OptinWidget> {
                 ),
               ),
               Spacer(),
+              // ignore: deprecated_member_use
               SvgPicture.asset(widget.icon2, color: AppColors.backgroundColor),
             ],
           ),

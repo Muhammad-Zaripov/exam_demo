@@ -19,7 +19,7 @@ class _MyTextState extends State<MyText> {
         Text(
           widget.title1,
           style: GoogleFonts.dmSans(
-            color: AppColors.blackColor,
+            color: AppColors.primaryBlueColor,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),
